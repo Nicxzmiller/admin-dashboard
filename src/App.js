@@ -1,9 +1,11 @@
-import { ColorModeContext, useMode } from "./theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
-import NavBar from "./screens/global/NavBar";
-import Dashboard from "./screens/dashboard";
-import SideBar from "./screens/SideBar";
+import { useState } from 'react';
+import { ColorModeContext, useMode } from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Routes, Route } from 'react-router-dom';
+import NavBar from './screens/global/NavBar';
+import Dashboard from './screens/dashboard';
+import SideBar from './screens/global/SideBar';
+
 // import  Team  from "./screens/team";
 // import  Invoices  from "./screens/invoices";
 // import  Contacts  from "./screens/contacts";
@@ -17,15 +19,16 @@ import SideBar from "./screens/SideBar";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="App">
-          <SideBar />
+          <SideBar isSidebar={isSidebar} />
           <main className="content">
-            <NavBar />
+            <NavBar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
             </Routes>
